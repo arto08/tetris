@@ -1,4 +1,4 @@
-var sqsize = 20;
+var sqsize = 40;
 
 
 function Shape(topRight){
@@ -44,10 +44,21 @@ function Shape(topRight){
     this.sq4.x = this.sq4.x + x;
   }
 
-  this.isLanded = function(){
+  this.isLanded = function(filled){
+    for(i = 0; i < filled.length; i++){
+      if(filled[i].sq1.y === this.sq3.y+sqsize && filled[i].sq1.x === this.sq3.x+sqsize ){
+        return true;
+      }
+      if(filled[i].sq2.y === this.sq3.y+sqsize && filled[i].sq2.x === this.sq3.x+sqsize ){
+        return true;
+      }
+      if(filled[i].sq2.y === this.sq3.y+sqsize && filled[i].sq2.x+sqsize === this.sq3.x+sqsize ){
+        return true;
+      }
+    }
 
     if(this.sq1.y === height - 2*sqsize){
-      return true;
+       return true;
     }
 
   }
