@@ -30,7 +30,7 @@ function Shape(topRight){
   }
 
   this.show = function(){
-    fill(200, 100, 0);
+    fill(255, 255, 0);
     rect(this.sq1.x, this.sq1.y, sqsize, sqsize);
     rect(this.sq2.x, this.sq2.y, sqsize, sqsize);
     rect(this.sq3.x, this.sq3.y, sqsize, sqsize);
