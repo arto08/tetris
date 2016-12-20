@@ -14,8 +14,7 @@ function draw() {
 
   if(shape.isLanded(filled)){
     filled.push(shape);
-    var startpos = (width-40*2)/2;
-    shape = new Shape(startpos);
+    shape = new Shape();
   }
   fillButtom(filled);
 
@@ -29,6 +28,7 @@ function draw() {
 
 function fillButtom(filled){
   for(var i = 0; i < filled.length; i++){
+    //TODO color managment 
     rect(filled[i].sq1.x, filled[i].sq1.y, 40, 40);
     rect(filled[i].sq2.x, filled[i].sq2.y, 40, 40);
     rect(filled[i].sq3.x, filled[i].sq3.y, 40, 40);

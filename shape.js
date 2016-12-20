@@ -1,12 +1,15 @@
 var sqsize = 40;
 
+function Shape(){
+  var topRight = (width-sqsize*2)/2;
+  var shapes = [1,2,3,4,5,6,7];
+  var newShape = random(shapes);
+  var squares = getSquares(newShape, topRight);
 
-function Shape(topRight){
-  //var topRight = (width-sqsize*2)/2;
-  this.sq1 = createVector(topRight, 0);
-  this.sq2 = createVector(topRight+sqsize, 0);
-  this.sq3 = createVector(topRight, sqsize);
-  this.sq4 = createVector(topRight+sqsize, sqsize);
+  this.sq1 = squares[0];
+  this.sq2 = squares[1];
+  this.sq3 = squares[2];
+  this.sq4 = squares[3];
 
   this.xdir = 0;
   this.ydir = sqsize;
@@ -30,7 +33,21 @@ function Shape(topRight){
   }
 
   this.show = function(){
-    fill(255, 255, 0);
+    if(newShape === 1)
+      fill(255, 255, 0);
+    else if(newShape === 2)
+      fill(0, 255, 0);
+    else if(newShape === 3)
+      fill(10, 255, 15);
+    else if(newShape === 4)
+      fill(100, 25, 0);
+    else if(newShape === 5)
+      fill(110, 55, 0);
+    else if(newShape === 6)
+      fill(110, 0, 0);
+    else if(newShape === 7)
+      fill(0, 255, 255);
+
     rect(this.sq1.x, this.sq1.y, sqsize, sqsize);
     rect(this.sq2.x, this.sq2.y, sqsize, sqsize);
     rect(this.sq3.x, this.sq3.y, sqsize, sqsize);
@@ -45,6 +62,7 @@ function Shape(topRight){
   }
 
   this.isLanded = function(filled){
+    //TODO proper collision detection
     for(i = 0; i < filled.length; i++){
       if(filled[i].sq1.y === this.sq3.y+sqsize && filled[i].sq1.x === this.sq3.x+sqsize ){
         return true;
@@ -60,6 +78,59 @@ function Shape(topRight){
     if(this.sq1.y === height - 2*sqsize){
        return true;
     }
-
   }
+}
+
+getSquares = function(squareID, topRight){
+  var squares = [];
+  if(squareID === 1){
+    squares[0] = createVector(topRight, 0);
+    squares[1] = createVector(topRight+sqsize, 0);
+    squares[2] = createVector(topRight, sqsize);
+    squares[3] = createVector(topRight+sqsize, sqsize);
+    return squares;
+  }
+  if(squareID === 2){
+    squares[0] = createVector(topRight, 0);
+    squares[1] = createVector(topRight-sqsize, sqsize);
+    squares[2] = createVector(topRight, sqsize);
+    squares[3] = createVector(topRight+sqsize, sqsize);
+    return squares;
+  }
+  if(squareID === 3){
+    squares[0] = createVector(topRight, 0);
+    squares[1] = createVector(topRight, sqsize);
+    squares[2] = createVector(topRight, 2*sqsize);
+    squares[3] = createVector(topRight+sqsize, 2*sqsize);
+    return squares;
+  }
+  if(squareID === 4){
+    squares[0] = createVector(topRight+sqsize, 0);
+    squares[1] = createVector(topRight+sqsize, sqsize);
+    squares[2] = createVector(topRight, 2*sqsize);
+    squares[3] = createVector(topRight+sqsize, 2*sqsize);
+    return squares;
+  }
+  if(squareID === 5){
+    squares[0] = createVector(topRight, 0);
+    squares[1] = createVector(topRight, sqsize);
+    squares[2] = createVector(topRight, 2*sqsize);
+    squares[3] = createVector(topRight, 3*sqsize);
+    return squares;
+  }
+  if(squareID === 6){
+    squares[0] = createVector(topRight-sqsize, 0);
+    squares[1] = createVector(topRight, 0);
+    squares[2] = createVector(topRight, sqsize);
+    squares[3] = createVector(topRight+sqsize, sqsize);
+    return squares;
+  }
+  if(squareID === 7){
+    squares[0] = createVector(topRight, 0);
+    squares[1] = createVector(topRight+sqsize, 0);
+    squares[2] = createVector(topRight-sqsize, sqsize);
+    squares[3] = createVector(topRight  , sqsize);
+    return squares;
+  }
+
 }
