@@ -9,30 +9,29 @@ function setup() {
 
 function draw() {
   background(200);
-  shape.update();
+  shape.update(10);
   shape.show();
 
-  if(shape.isLanded(filled)){
+  if(shape.hasLanded(filled)){
     filled.push(shape);
     shape = new Shape();
   }
   fillButtom(filled);
 
-  /*if(keyIsDown(LEFT_ARROW)){
-    shape.dir(-20, 0);
-  }
-  if(keyIsDown(RIGHT_ARROW)){
-    shape.dir(20,0);
-  }*/
+  // if(keyIsDown(LEFT_ARROW)){
+  //   shape.changeDir(-40, 0);
+  // }
+  // if(keyIsDown(RIGHT_ARROW)){
+  //   shape.changeDir(40,0);
+  // }
 }
 
 function fillButtom(filled){
   for(var i = 0; i < filled.length; i++){
-    //TODO color managment 
-    rect(filled[i].sq1.x, filled[i].sq1.y, 40, 40);
-    rect(filled[i].sq2.x, filled[i].sq2.y, 40, 40);
-    rect(filled[i].sq3.x, filled[i].sq3.y, 40, 40);
-    rect(filled[i].sq4.x, filled[i].sq4.y, 40, 40);
+    shape.colorShape(filled[i].currentShape);
+    for(j = 0; j < filled[i].squares.length; j++){
+        rect(filled[i].squares[j].x, filled[i].squares[j].y, 40, 40);
+    }
   }
 }
 
