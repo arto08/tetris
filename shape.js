@@ -4,7 +4,7 @@ var turn = 0;
 function Shape(){
   var refPoint = (width-sqsize*2)/2;
   // var shapes = [1,2,3,4,5,6,7];
-  var shapes = [2];
+  var shapes = [4];
   this.currentShape = random(shapes);
   this.squares = getSquares(this.currentShape, refPoint);
 
@@ -32,7 +32,7 @@ function Shape(){
     }
   }
 
-  this.rotate = function(){
+  this.rotate = function(){ //TODO rotate properly along the boundries
     if(this.currentShape === 2){
       if(turn === 0){
         this.squares[0].x = this.squares[0].x + sqsize;
@@ -77,8 +77,104 @@ function Shape(){
         turn = 0;
         return;
       }
+    }
+
+    if(this.currentShape === 3){
+      if(turn === 0){
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[2].x = this.squares[2].x - sqsize;
+        this.squares[3].x = this.squares[3].x - 2*sqsize;
+
+        this.squares[0].y = this.squares[0].y + sqsize;
+        this.squares[2].y = this.squares[2].y - sqsize;
+        turn++;
+        return;
+      }
+      if(turn === 1){
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[2].x = this.squares[2].x + sqsize;
+
+        this.squares[0].y = this.squares[0].y + sqsize;
+        this.squares[2].y = this.squares[2].y - sqsize;
+        this.squares[3].y = this.squares[3].y - 2*sqsize;
+        turn++;
+        return;
+      }
+      if(turn === 2){
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[2].x = this.squares[2].x + sqsize;
+        this.squares[3].x = this.squares[3].x + 2*sqsize;
+
+        this.squares[0].y = this.squares[0].y - sqsize;
+        this.squares[2].y = this.squares[2].y + sqsize;
+        turn++;
+        return;
+      }
+      if(turn === 3){
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[2].x = this.squares[2].x - sqsize;
+
+        this.squares[0].y = this.squares[0].y - 2*sqsize;
+        this.squares[1].y = this.squares[1].y - sqsize;
+        this.squares[3].y = this.squares[3].y + sqsize;
+        turn = 0;
+        return;
+      }
+
+    }
+
+    if(this.currentShape === 4){
+      // if(turn === 0){
+      //   this.squares[2].x = this.squares[1].x + sqsize;
+      //   this.squares[3].x = this.squares[3].x - sqsize;
+      //
+      //   this.squares[0].y = this.squares[0].y - sqsize;
+      //   this.squares[1].y = this.squares[1].y + 2*sqsize;
+      //   this.squares[2].y = this.squares[2].y + sqsize;
+      //
+      //   turn++;
+      //   return;
+      // }
+      // if(turn === 1){
+      //   this.squares[0].x = this.squares[0].x + sqsize;
+      //   this.squares[1].x = this.squares[1].x - 2*sqsize;
+      //   this.squares[2].x = this.squares[2].x - sqsize;
+      //
+      //   this.squares[0].y = this.squares[0].y - sqsize;
+      //   this.squares[2].y = this.squares[2].y - sqsize;
+      //   this.squares[3].y = this.squares[3].y - 2*sqsize;
+      //   turn++;
+      //   return;
+      // }
 
 
+    }
+
+
+
+    if(this.currentShape === 5){
+      if(turn === 0){
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[2].x = this.squares[2].x - sqsize;
+        this.squares[3].x = this.squares[3].x - 2*sqsize;
+
+        this.squares[0].y = this.squares[0].y + sqsize;
+        this.squares[2].y = this.squares[2].y - sqsize;
+        this.squares[3].y = this.squares[3].y - 2*sqsize;
+        turn++;
+        return;
+      }
+      if(turn === 1){
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[2].x = this.squares[2].x + sqsize;
+        this.squares[3].x = this.squares[3].x + 2*sqsize;
+
+        this.squares[0].y = this.squares[0].y - sqsize;
+        this.squares[2].y = this.squares[2].y + sqsize;
+        this.squares[3].y = this.squares[3].y + 2*sqsize;
+        turn = 0;
+        return;
+      }
     }
 
   }
