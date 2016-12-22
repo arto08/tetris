@@ -17,13 +17,6 @@ function draw() {
     shape = new Shape();
   }
   fillButtom(filled);
-
-  // if(keyIsDown(LEFT_ARROW)){
-  //   shape.changeDir(-40, 0);
-  // }
-  // if(keyIsDown(RIGHT_ARROW)){
-  //   shape.changeDir(40,0);
-  // }
 }
 
 function fillButtom(filled){
@@ -41,5 +34,13 @@ function keyPressed(){
     shape.changeDir(-40, 0);
   }else if (keyCode === RIGHT_ARROW){
     shape.changeDir(40, 0);
+  } if(keyCode === UP_ARROW){
+    shape.rotate();
+  }
+}
+
+function keyTyped(){
+  if(key === ' '){
+    shape.rotate();
   }
 }
