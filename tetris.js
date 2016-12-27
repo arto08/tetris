@@ -3,8 +3,9 @@ var filled = [];
 function setup() {
   createCanvas(400,600);
   frameRate(3);
-
+  background(200);
   shape = new Shape((width-40*2)/2);
+  shape.show();
 }
 
 function draw() {

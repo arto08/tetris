@@ -4,7 +4,7 @@ var turn = 0;
 function Shape(){
   var refPoint = (width-sqsize*2)/2;
   var shapes = [1,2,3,4,5,6,7];
-  //var shapes = [7,6];
+  //var shapes = [5];
   this.currentShape = random(shapes);
   this.squares = getSquares(this.currentShape, refPoint);
 
@@ -171,8 +171,6 @@ function Shape(){
 
     }
 
-
-
     if(this.currentShape === 5){
       if(turn === 0){
         this.squares[0].x = this.squares[0].x + sqsize;
@@ -223,12 +221,25 @@ function Shape(){
   }
 
   this.hasLanded = function(filled){
-    //TODO proper collision detection
-    if(this.squares[1].y === height - 4*sqsize){
-      turn = 0;
-      return true;
+    for(i = 0; i < this.squares.length; i++){
+      thisx = this.squares[i].x;
+      thisy = this.squares[i].y;
+      if(thisy + sqsize === height){
+        turn = 0;
+        return true;
+      }
+      for (j = 0; j < filled.length; j++) {
+        for(k = 0; k < this.squares.length; k++){
+          filledx = filled[j].squares[k].x;
+          filledy = filled[j].squares[k].y;
+          if(thisx === filledx && thisy + sqsize === filledy){
+            turn = 0;
+            return true;
+          }
+        }
+      }
     }
-
+    return false;
   }
 
   this.colorShape = function(newShape){
@@ -249,17 +260,15 @@ function Shape(){
   }
 
   this.setBoundries = function(){
-    if(this.currentShape === 5){
-      for(i = 0; i < this.squares.length; i++){
-        this.squares[i].x = constrain(this.squares[i].x, 0, width-sqsize);
-        this.squares[i].y = constrain(this.squares[i].y, 0, height-(this.squares.length-i)*sqsize);
-      }
-    }
+    //TODO
+    // if(this.currentShape === 5){
+    //   for(i = 0; i < this.squares.length; i++){
+    //     this.squares[i].x = constrain(this.squares[i].x, 0, width-sqsize);
+    //     this.squares[i].y = constrain(this.squares[i].y, 0, height-(this.squares.length-i)*sqsize);
+    //   }
+    // }
   }
 }
-
-
-
 
 getSquares = function(shapeID, refPoint){
   var squares = [];
