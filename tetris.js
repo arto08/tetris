@@ -16,6 +16,8 @@ function draw() {
   if(shape.hasLanded(filled)){
     filled.push(shape);
     shape = new Shape();
+    shape.show();
+
   }
   fillButtom(filled);
 }
@@ -31,12 +33,14 @@ function fillButtom(filled){
 
 
 function keyPressed(){
-  if(keyCode === LEFT_ARROW){
+  if(keyCode === LEFT_ARROW && shape.canMoveLeft(filled)){
     shape.changeDir(-40, 0);
-  }else if (keyCode === RIGHT_ARROW){
+  }else if (keyCode === RIGHT_ARROW && shape.canMoveRight(filled)){
     shape.changeDir(40, 0);
-  } if(keyCode === UP_ARROW){
+  }else if(keyCode === UP_ARROW){
     shape.rotate();
+  }else if(keyCode === DOWN_ARROW){
+    console.log('TODO speed up'); //TODO
   }
 }
 

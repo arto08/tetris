@@ -26,6 +26,42 @@ function Shape(){
     }
   }
 
+  this.canMoveLeft = function(filled){
+    for(i = 0; i < this.squares.length; i++){
+      thisx = this.squares[i].x;
+      thisy = this.squares[i].y;
+      if(filled.length === 0 && thisx - sqsize < 0)
+        return false;
+      for(j = 0; j < filled.length; j++){
+        for(k = 0; k < filled[j].squares.length; k++){
+          filledx = filled[j].squares[k].x;
+          filledy = filled[j].squares[k].y;
+            if(thisx - sqsize === filledx && thisy === filledy || thisx - sqsize < 0)
+              return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  this.canMoveRight = function(filled){
+    for(i = 0; i < this.squares.length; i++){
+      thisx = this.squares[i].x;
+      thisy = this.squares[i].y;
+      if(filled.length === 0 && thisx + sqsize >= width)
+        return false;
+      for(j = 0; j < filled.length; j++){
+        for(k = 0; k < filled[j].squares.length; k++){
+          filledx = filled[j].squares[k].x;
+          filledy = filled[j].squares[k].y;
+            if(thisx + sqsize === filledx && thisy === filledy || thisx + sqsize >= width)
+              return false;
+        }
+      }
+    }
+    return true;
+  }
+
   this.changeDir = function(x,y){
     for(i = 0; i < this.squares.length; i++){
       this.squares[i].x = this.squares[i].x + x;
