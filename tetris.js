@@ -39,7 +39,7 @@ function keyPressed(){
   }else if (keyCode === RIGHT_ARROW && shape.canMoveRight(filled)){
     shape.changeDir(40, 0);
   }else if(keyCode === UP_ARROW){
-    shape.rotate();
+    shape.rotate(filled);
   }else if(keyCode === DOWN_ARROW){
     console.log('TODO speed up'); //TODO
   }
@@ -47,6 +47,6 @@ function keyPressed(){
 
 function keyTyped(){
   if(key === ' '){
-    shape.rotate();
+    shape.rotate(filled);
   }
 }

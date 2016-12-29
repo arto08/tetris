@@ -3,8 +3,8 @@ var turn = 0;
 
 function Shape(){
   var refPoint = (width-sqsize*2)/2;
-  // var shapes = [1,2,3,4,5,6,7];
-  var shapes = [5];
+  var shapes = [1,2,3,4,5,6,7];
+  //var shapes = [5];
   this.currentShape = random(shapes);
   this.squares = getSquares(this.currentShape, refPoint);
 
@@ -66,7 +66,25 @@ function Shape(){
     }
   }
 
-  this.rotate = function(){ //TODO rotate properly along the boundries
+  this.isValidRotation = function(filled){
+    for(i = 0; i < this.squares.length; i++){
+      thisx = this.squares[i].x;
+      thisy = this.squares[i].y;
+      if(thisx < 0 || thisx >= width || thisy >= height || thisy < 0)
+        return false;
+      for(j = 0; j < filled.length; j++){
+        for(k = 0; k < filled[j].squares.length; k++){
+          filledx = filled[j].squares[k].x;
+          filledy = filled[j].squares[k].y;
+          if(thisx === filledx && thisy === filledy)
+            return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  this.rotate = function(filled){
     if(this.currentShape === 2){
       if(turn === 0){
         this.squares[0].x = this.squares[0].x + sqsize;
@@ -75,7 +93,16 @@ function Shape(){
 
         this.squares[0].y = this.squares[0].y - 2*sqsize;
         this.squares[2].y = this.squares[2].y - sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[1].x = this.squares[1].x - sqsize;
+        this.squares[3].x = this.squares[3].x + sqsize;
+
+        this.squares[0].y = this.squares[0].y + 2*sqsize;
+        this.squares[2].y = this.squares[2].y + sqsize;
         return;
       }
       if(turn === 1){
@@ -86,7 +113,17 @@ function Shape(){
         this.squares[0].y = this.squares[0].y + sqsize;
         this.squares[1].y = this.squares[1].y + sqsize;
         this.squares[3].y = this.squares[3].y - sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[1].x = this.squares[1].x + sqsize;
+        this.squares[3].x = this.squares[3].x + sqsize;
+
+        this.squares[0].y = this.squares[0].y - sqsize;
+        this.squares[1].y = this.squares[1].y - sqsize;
+        this.squares[3].y = this.squares[3].y + sqsize;
         return;
       }
       if(turn === 2){
@@ -97,7 +134,17 @@ function Shape(){
         this.squares[0].y = this.squares[0].y + sqsize;
         this.squares[1].y = this.squares[1].y - sqsize;
         this.squares[3].y = this.squares[3].y - sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[1].x = this.squares[1].x + sqsize;
+        this.squares[3].x = this.squares[3].x - sqsize;
+
+        this.squares[0].y = this.squares[0].y - sqsize;
+        this.squares[1].y = this.squares[1].y + sqsize;
+        this.squares[3].y = this.squares[3].y + sqsize;
         return;
       }
       if(turn === 3){
@@ -108,7 +155,17 @@ function Shape(){
         this.squares[0].y = this.squares[0].y - sqsize;
         this.squares[1].y = this.squares[1].y - sqsize;
         this.squares[3].y = this.squares[3].y + sqsize;
-        turn = 0;
+        if(this.isValidRotation(filled)){
+          turn = 0;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[1].x = this.squares[1].x - sqsize;
+        this.squares[3].x = this.squares[3].x - sqsize;
+
+        this.squares[0].y = this.squares[0].y + sqsize;
+        this.squares[1].y = this.squares[1].y + sqsize;
+        this.squares[3].y = this.squares[3].y - sqsize;
         return;
       }
     }
@@ -121,7 +178,16 @@ function Shape(){
 
         this.squares[0].y = this.squares[0].y + sqsize;
         this.squares[2].y = this.squares[2].y - sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[2].x = this.squares[2].x + sqsize;
+        this.squares[3].x = this.squares[3].x + 2*sqsize;
+
+        this.squares[0].y = this.squares[0].y - sqsize;
+        this.squares[2].y = this.squares[2].y + sqsize;
         return;
       }
       if(turn === 1){
@@ -131,7 +197,16 @@ function Shape(){
         this.squares[0].y = this.squares[0].y + sqsize;
         this.squares[2].y = this.squares[2].y - sqsize;
         this.squares[3].y = this.squares[3].y - 2*sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[2].x = this.squares[2].x - sqsize;
+
+        this.squares[0].y = this.squares[0].y - sqsize;
+        this.squares[2].y = this.squares[2].y + sqsize;
+        this.squares[3].y = this.squares[3].y + 2*sqsize;
         return;
       }
       if(turn === 2){
@@ -141,7 +216,16 @@ function Shape(){
 
         this.squares[0].y = this.squares[0].y - sqsize;
         this.squares[2].y = this.squares[2].y + sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[2].x = this.squares[2].x - sqsize;
+        this.squares[3].x = this.squares[3].x - 2*sqsize;
+
+        this.squares[0].y = this.squares[0].y + sqsize;
+        this.squares[2].y = this.squares[2].y - sqsize;
         return;
       }
       if(turn === 3){
@@ -151,10 +235,18 @@ function Shape(){
         this.squares[0].y = this.squares[0].y - 2*sqsize;
         this.squares[1].y = this.squares[1].y - sqsize;
         this.squares[3].y = this.squares[3].y + sqsize;
-        turn = 0;
+        if(this.isValidRotation(filled)){
+          turn = 0;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[2].x = this.squares[2].x + sqsize;
+
+        this.squares[0].y = this.squares[0].y + 2*sqsize;
+        this.squares[1].y = this.squares[1].y + sqsize;
+        this.squares[3].y = this.squares[3].y - sqsize;
         return;
       }
-
     }
 
     if(this.currentShape === 4){
@@ -165,8 +257,16 @@ function Shape(){
         this.squares[0].y = this.squares[0].y - sqsize;
         this.squares[1].y = this.squares[1].y + 2*sqsize;
         this.squares[2].y = this.squares[2].y + sqsize;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[1].x = this.squares[1].x - sqsize;
+        this.squares[3].x = this.squares[3].x + sqsize;
 
-        turn++;
+        this.squares[0].y = this.squares[0].y + sqsize;
+        this.squares[1].y = this.squares[1].y - 2*sqsize;
+        this.squares[2].y = this.squares[2].y - sqsize;
         return;
       }
       if(turn === 1){
@@ -177,7 +277,17 @@ function Shape(){
         this.squares[0].y = this.squares[0].y - sqsize;
         this.squares[2].y = this.squares[2].y - sqsize;
         this.squares[3].y = this.squares[3].y - 2*sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[1].x = this.squares[1].x + 2*sqsize;
+        this.squares[2].x = this.squares[2].x + sqsize;
+
+        this.squares[0].y = this.squares[0].y + sqsize;
+        this.squares[2].y = this.squares[2].y + sqsize;
+        this.squares[3].y = this.squares[3].y + 2*sqsize;
         return;
       }
       if(turn === 2){
@@ -187,7 +297,16 @@ function Shape(){
         this.squares[0].y = this.squares[0].y + sqsize;
         this.squares[1].y = this.squares[1].y - 2*sqsize;
         this.squares[2].y = this.squares[2].y - sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[1].x = this.squares[1].x + sqsize;
+        this.squares[3].x = this.squares[3].x - sqsize;
+
+        this.squares[0].y = this.squares[0].y - sqsize;
+        this.squares[1].y = this.squares[1].y + 2*sqsize;
+        this.squares[2].y = this.squares[2].y + sqsize;
         return;
       }
       if(turn === 3){
@@ -197,12 +316,18 @@ function Shape(){
 
         this.squares[1].y = this.squares[1].y - sqsize;
         this.squares[3].y = this.squares[3].y + sqsize;
+        if(this.isValidRotation(filled)){
+          turn = 0;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[1].x = this.squares[1].x - 2*sqsize;
+        this.squares[2].x = this.squares[2].x - sqsize;
 
-        turn = 0;
+        this.squares[1].y = this.squares[1].y + sqsize;
+        this.squares[3].y = this.squares[3].y - sqsize;
         return;
       }
-
-
     }
 
     if(this.currentShape === 5){
@@ -214,7 +339,18 @@ function Shape(){
         this.squares[0].y = this.squares[0].y + sqsize;
         this.squares[2].y = this.squares[2].y - sqsize;
         this.squares[3].y = this.squares[3].y - 2*sqsize;
-        turn++;
+
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x - sqsize;
+        this.squares[2].x = this.squares[2].x + sqsize;
+        this.squares[3].x = this.squares[3].x + 2*sqsize;
+
+        this.squares[0].y = this.squares[0].y - sqsize;
+        this.squares[2].y = this.squares[2].y + sqsize;
+        this.squares[3].y = this.squares[3].y + 2*sqsize;
         return;
       }
       if(turn === 1){
@@ -225,7 +361,17 @@ function Shape(){
         this.squares[0].y = this.squares[0].y - sqsize;
         this.squares[2].y = this.squares[2].y + sqsize;
         this.squares[3].y = this.squares[3].y + 2*sqsize;
-        turn = 0;
+        if(this.isValidRotation(filled)){
+          turn = 0;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x + sqsize;
+        this.squares[2].x = this.squares[2].x - sqsize;
+        this.squares[3].x = this.squares[3].x - 2*sqsize;
+
+        this.squares[0].y = this.squares[0].y + sqsize;
+        this.squares[2].y = this.squares[2].y - sqsize;
+        this.squares[3].y = this.squares[3].y - 2*sqsize;
         return;
       }
     }
@@ -238,7 +384,16 @@ function Shape(){
 
         this.squares[1].y = this.squares[1].y + sqsize;
         this.squares[3].y = this.squares[3].y + sqsize;
-        turn++;
+        if(this.isValidRotation(filled)){
+          turn++;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x - 2*sqsize;
+        this.squares[1].x = this.squares[1].x - sqsize;
+        this.squares[3].x = this.squares[3].x + sqsize;
+
+        this.squares[1].y = this.squares[1].y - sqsize;
+        this.squares[3].y = this.squares[3].y - sqsize;
         return;
       }
       if(turn === 1){
@@ -248,7 +403,16 @@ function Shape(){
 
         this.squares[1].y = this.squares[1].y - sqsize;
         this.squares[3].y = this.squares[3].y - sqsize;
-        turn = 0;
+        if(this.isValidRotation(filled)){
+          turn = 0;
+          return;
+        }
+        this.squares[0].x = this.squares[0].x + 2*sqsize;
+        this.squares[1].x = this.squares[1].x + sqsize;
+        this.squares[3].x = this.squares[3].x - sqsize;
+
+        this.squares[1].y = this.squares[1].y + sqsize;
+        this.squares[3].y = this.squares[3].y + sqsize;
         return;
       }
     }
