@@ -1,8 +1,8 @@
 var shape;
 var filled = [];
+var speed = 30;
 function setup() {
   createCanvas(400,600);
-  frameRate(3);
   background(200);
   shape = new Shape((width-40*2)/2);
   shape.show();
@@ -10,7 +10,8 @@ function setup() {
 
 function draw() {
   background(200);
-  shape.update(10);
+  if(frameCount % speed === 0)
+    shape.update(10);
   shape.show();
 
   if(shape.hasLanded(filled)){

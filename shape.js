@@ -3,8 +3,8 @@ var turn = 0;
 
 function Shape(){
   var refPoint = (width-sqsize*2)/2;
-  var shapes = [1,2,3,4,5,6,7];
-  //var shapes = [5];
+  // var shapes = [1,2,3,4,5,6,7];
+  var shapes = [5];
   this.currentShape = random(shapes);
   this.squares = getSquares(this.currentShape, refPoint);
 
@@ -15,8 +15,6 @@ function Shape(){
     for(i = 0; i < this.squares.length; i++){
       this.squares[i].y = this.squares[i].y + this.ydir;
     }
-
-    this.setBoundries();
   }
 
   this.show = function(){
@@ -293,16 +291,6 @@ function Shape(){
     fill(255, 0, 0);
     else if(newShape === 7)
     fill(0, 255, 0);
-  }
-
-  this.setBoundries = function(){
-    //TODO
-    // if(this.currentShape === 5){
-    //   for(i = 0; i < this.squares.length; i++){
-    //     this.squares[i].x = constrain(this.squares[i].x, 0, width-sqsize);
-    //     this.squares[i].y = constrain(this.squares[i].y, 0, height-(this.squares.length-i)*sqsize);
-    //   }
-    // }
   }
 }
 
